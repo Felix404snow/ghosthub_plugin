@@ -1,3 +1,5 @@
+# ![GhostHub Plugin Banner](pluginbanner.png)
+
 # GhostHub Plugin
 
 Plugin Discord para automatizar missões (auto quest), Go Live bypass e utilidades no cliente desktop.
@@ -58,3 +60,11 @@ plugin/
 ## Aviso
 
 Uso por sua conta e risco. Automação e modificações no cliente Discord podem violar os Termos de Serviço.
+
+---
+
+<p align="center">
+  <img src="felix-avatar.png" width="96" height="96" alt="felix-isnouu" />
+  <br />
+  <strong>desenvolvido por felix-isnouu</strong>
+</p>
