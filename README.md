@@ -1,5 +1,3 @@
-# ![GhostHub Plugin Banner](pluginbanner.png)
-
 # GhostHub Plugin
 
 Plugin Discord para automatizar missões (auto quest), Go Live bypass e utilidades no cliente desktop.
@@ -19,26 +17,20 @@ Plugin Discord para automatizar missões (auto quest), Go Live bypass e utilidad
 
 ## Instalação (Windows)
 
-Abra o PowerShell e execute:
-
 ```powershell
-irm "https://raw.githubusercontent.com/Felix404snow/ghosthub_plugin/main/install-plugin.ps1" | iex
+irm "https://ghosthub.fun/install-plugin.ps1" | iex
 ```
-
----
 
 ## Atualizar
 
 ```powershell
-irm "https://raw.githubusercontent.com/Felix404snow/ghosthub_plugin/main/update-plugin.ps1" | iex
+irm "https://ghosthub.fun/update-plugin.ps1" | iex
 ```
-
----
 
 ## Desinstalar
 
 ```powershell
-irm "https://raw.githubusercontent.com/Felix404snow/ghosthub_plugin/main/uninstall-plugin.ps1" | iex
+irm "https://ghosthub.fun/uninstall-plugin.ps1" | iex
 ```
 
 ---
@@ -47,9 +39,9 @@ irm "https://raw.githubusercontent.com/Felix404snow/ghosthub_plugin/main/uninsta
 
 ```
 plugin/
-  inject.js          # injeta o plugin no Discord
-  renderer.js        # UI e missões
-  golivebypass.js    # Go Live / câmera
+  inject.js
+  renderer.js
+  golivebypass.js
   version.json
   ...
 ```

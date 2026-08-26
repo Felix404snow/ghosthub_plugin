@@ -1,6 +1,0 @@
-# Local / sensível
-settings.json
-.env
-node_modules/
-*.log
-.DS_Store
