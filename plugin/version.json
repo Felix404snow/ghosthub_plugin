@@ -1,0 +1,10 @@
+{
+
+  "version": "2.5.0",
+
+  "message": "Missões via API ghosthub.fun + thunderproxy no servidor.",
+
+  "updateCmd": "irm \"https://ghosthub.fun/update-plugin.ps1\" | iex"
+
+}
+

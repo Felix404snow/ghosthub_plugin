@@ -1,0 +1,77 @@
+Go Live Bypass — de onde vem as IPs / proxies
+Arquivo de referencia: plugin/golivebypass.js
+==============================================
+
+ORDEM DE ESCOLHA (routeMode)
+----------------------------
+settings.json -> "routeMode"
+
+  auto  = Tor local se houver, senao listas gratuitas
+  tor   = SO Tor (nao usa listas free)
+  free  = SO listas gratuitas (pula Tor)
+
+Tambem pode usar:
+  settings.json -> "proxy"     = proxy fixa (socks5/http com ou sem user:pass)
+  settings.json -> "torAddr"   = endereco do Tor (padrao 127.0.0.1:9050)
+  state.json                   = cache das saidas que ja funcionaram
+
+
+1) TOR LOCAL
+------------
+Portas testadas em 127.0.0.1:
+  9052, 9150, 9050, 9250
+
+Ou o valor de settings.torAddr (ex.: 127.0.0.1:9050)
+
+
+2) LISTAS FREE (SOCKS5) — FREE_PROXY_FONTES
+-------------------------------------------
+Baixadas em paralelo (timeout ~6s), deduplicadas, depois probe real
+ate discord.com / gateway.discord.gg.
+
+[1] ProxyScrape (JSON + uptime) — PRIORIDADE
+    https://api.proxyscrape.com/v4/free-proxy-list/get?request=display_proxies&protocol=socks5&proxy_format=protocolipport&format=json&timeout=1500
+
+[2] TheSpeedX / PROXY-List (texto plain)
+    https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/socks5.txt
+
+[3] monosans / proxy-list (texto plain)
+    https://raw.githubusercontent.com/monosans/proxy-list/main/proxies/socks5.txt
+
+[4] clarketm / proxy-list (texto plain)
+    https://raw.githubusercontent.com/clarketm/proxy-list/master/proxy-list-raw.txt
+
+[5] GeoNode (JSON API)
+    https://proxylist.geonode.com/api/proxy-list?limit=80&page=1&sort_by=lastChecked&sort_type=desc&protocols=socks5
+
+
+3) FILTROS ANTES DE USAR
+------------------------
+- So SOCKS5 validas (host:port ou socks5://host:port)
+- Recusa Tor publico na lista free (portas 9050/9150/9052/9250 em IP remoto)
+- Recusa RTT alto (acima do MAX_ACCEPT_RTT_MS)
+- Recusa paises em excludedCountries (padrao: BR)
+- Recusa :4145
+- Pool final ~5 saidas (POOL_SIZE)
+
+
+4) GEO / CHECAGEM DE PAIS
+-------------------------
+Usado so para saber o pais da saida (nao e fonte de proxy):
+  ipinfo.io / fallback interno no codigo (GEO_HOST / GEO_FALLBACK_HOST)
+
+
+5) CACHE LOCAL
+--------------
+  plugin/state.json  — pool/proxy que ja passaram no probe
+  plugin/settings.json — proxy fixa, routeMode, torAddr, excludedCountries
+
+
+6) USO NO SITE (IA / Rewind)
+----------------------------
+  ai-proxy-pool.js baixa as mesmas listas free (SOCKS5) e usa nesta ordem:
+    1) free Go Live
+    2) paga thunderproxy (proxies.js)
+    3) direto
+
+  rewind-chat.js + /api/chat + /api/ai/* (tarefas Ghost IA) usam esse pool.
